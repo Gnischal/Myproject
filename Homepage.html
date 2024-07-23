@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Project Showcase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .upload-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-section input[type="file"] {
+            display: none;
+        }
+        .upload-section label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0078d4;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .showcase {
+            margin-top: 20px;
+        }
+        .project {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Power BI Project Showcase</h1>
+        <div class="upload-section">
+            <input type="file" id="fileInput" accept=".pbix">
+            <label for="fileInput">Upload Power BI Project</label>
+        </div>
+        <div class="showcase" id="showcase">
+            <!-- Uploaded projects will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const projectElement = document.createElement('div');
+                    projectElement.className = 'project';
+                    projectElement.innerHTML = `
+                        <h2>${file.name}</h2>
+                        <p>Size: ${(file.size / 1024).toFixed(2)} KB</p>
+                        <p>Type: ${file.type}</p>
+                    `;
+                    document.getElementById('showcase').appendChild(projectElement);
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        });
+    </script>
+</body>
+</html>
